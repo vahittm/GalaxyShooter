@@ -19,15 +19,16 @@ public class Player : MonoBehaviour
     [FormerlySerializedAs("_lives")] [SerializeField]
     private int lives = 3;
 
-   // private Spawn_Manager _spawnManager;
+    private SpawnManager _spawnManager;
 
 
     // Start is called before the first frame update
     void Start()
     {
         transform.position = new Vector3(0, -3.8f, 0);
-        //_spawnManager = GameObject.Find("Spawn_manager").GetComponent<Spawn_Manager>();
-       // if (_spawnManager==null)
+        _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+        
+        if (_spawnManager == null)
         {
             Debug.LogError("The spawn manager is null");
         }
@@ -84,12 +85,12 @@ public class Player : MonoBehaviour
 
     public void Damage()
 
-    {  Debug.Break();
+    {  
         lives -=1;
-        
+         
         if (lives < 1)
         {
-           // _spawnManager.OnPlayerDeath();
+            _spawnManager.OnPlayerDeath();
             Destroy(gameObject);
         }
     }
