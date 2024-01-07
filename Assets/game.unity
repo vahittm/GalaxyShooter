@@ -401,8 +401,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   laserPrefab: {fileID: 1309664827282382391, guid: f8147cdffc988444ab3af8f6a292d845, type: 3}
+  _tripleShotPrefab: {fileID: 6988983926695795800, guid: e1acc2012f12cb44f8350ede5fde70ec, type: 3}
   fireRate: 0.15
   lives: 3
+  _IsTripleShotActive: 0
 --- !u!61 &871050020
 BoxCollider2D:
   m_ObjectHideFlags: 0
