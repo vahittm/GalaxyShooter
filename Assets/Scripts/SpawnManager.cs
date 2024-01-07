@@ -9,7 +9,7 @@ private GameObject _enemyPrefab;
 [SerializeField]
     private GameObject _enemyContainer;
 
-    private bool _stopSpawning = false;
+    private bool _stopSpawning ;
     
     // Start is called before the first frame update
     void Start()
