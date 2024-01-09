@@ -9,8 +9,11 @@ public class Player : MonoBehaviour
 {
     [FormerlySerializedAs("_speed")] [SerializeField] 
     private float speed = 3.5f;
+    private float speedMultiplier = 2;
+    
     [FormerlySerializedAs("_laserPrefab")] [SerializeField]
     private GameObject laserPrefab;
+    
     [SerializeField]
     private GameObject _tripleShotPrefab;
     
@@ -19,13 +22,16 @@ public class Player : MonoBehaviour
 
     private float _canFire = -1f;
     [FormerlySerializedAs("_lives")] [SerializeField]
+    
     private int lives = 3;
 
     private SpawnManager _spawnManager;
     [SerializeField]
-
-    private bool _IsTripleShotActive = false;
-
+    private bool _IsTripleShotActive ;
+    private bool _isSpeedBoostActive ;
+    private bool _IsShieldAcitve;
+    [SerializeField]
+    private GameObject _shieldVisualizer;
 
     // Start is called before the first frame update
     void Start()
@@ -61,7 +67,7 @@ public class Player : MonoBehaviour
         //transform.Translate(Vector3.up * (verticalInput * _speed * Time.deltaTime));
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
         Transform transform1;
-        (transform1 = transform).Translate(direction * (speed * Time.deltaTime));
+            (transform1 = transform).Translate(direction * (speed * Time.deltaTime));
 
         var position = transform1.position;
         position = new Vector3(position.x, Mathf.Clamp(position.y, -3.8f, 0f),0);
@@ -98,7 +104,13 @@ public class Player : MonoBehaviour
 
     public void Damage()
 
-    {  
+    {
+        if (_IsShieldAcitve)
+        {
+            _IsShieldAcitve = false;
+            _shieldVisualizer.SetActive(false);
+            return;
+        }
         lives -=1;
          
         if (lives < 1)
@@ -119,6 +131,26 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f);
         _IsTripleShotActive = false;
+    }
+
+    public void SpeedBoostActive()
+    {
+        _isSpeedBoostActive = true;
+        speed *= speedMultiplier;
+        StartCoroutine(SpeedBoostPowerDownRoutine());
+    }
+
+    IEnumerator SpeedBoostPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _isSpeedBoostActive = false;
+        speed /= speedMultiplier;
+    }
+
+    public void ShieldActive()
+    {
+        _IsShieldAcitve = true;
+        _shieldVisualizer.SetActive(true);
     }
 }
             
