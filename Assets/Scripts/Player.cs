@@ -21,8 +21,9 @@ public class Player : MonoBehaviour
     private float fireRate = 0.5f;
 
     private float _canFire = -1f;
-    [FormerlySerializedAs("_lives")] [SerializeField]
-    
+    [FormerlySerializedAs("_lives")] 
+     
+    [SerializeField]
     private int lives = 3;
 
     private SpawnManager _spawnManager;
