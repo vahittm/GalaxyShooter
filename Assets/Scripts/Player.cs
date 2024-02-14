@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+
 public class Player : MonoBehaviour
 
 {
@@ -26,6 +27,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int lives = 3;
 
+    [SerializeField] 
+    private int score;
+
     private SpawnManager _spawnManager;
     [SerializeField]
     private bool _IsTripleShotActive ;
@@ -34,15 +38,24 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _shieldVisualizer;
 
+    private UI_Manager UIManager;
+
     // Start is called before the first frame update
     void Start()
     {
         transform.position = new Vector3(0, -3.8f, 0);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+        UIManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
         
         if (_spawnManager == null)
         {
             Debug.LogError("The spawn manager is null");
+        }
+
+        if (UIManager ==null)
+            
+        {
+            Debug.LogError("the ui manager is null");
         }
     }
 
@@ -113,7 +126,8 @@ public class Player : MonoBehaviour
             return;
         }
         lives -=1;
-         
+        
+        UIManager.updatelives(lives); 
         if (lives < 1)
         {
             _spawnManager.OnPlayerDeath();
@@ -153,7 +167,14 @@ public class Player : MonoBehaviour
         _IsShieldAcitve = true;
         _shieldVisualizer.SetActive(true);
     }
+
+    public void Addscore(int points)
+    {
+        score += points; 
+        UIManager.updatescore(score);
+    }
 }
+    
             
                 
             
