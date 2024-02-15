@@ -1,18 +1,18 @@
+ using System;
  using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private bool isgameOver;
 
-    // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.R) && isgameOver == true)
+        {
+        }
     }
 }
